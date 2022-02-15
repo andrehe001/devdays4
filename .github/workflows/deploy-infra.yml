@@ -14,7 +14,9 @@ env:
 jobs:
   deploy-infra:
     runs-on: ubuntu-latest
-
+    env:
+      APP_NAME: ${{ steps.infra.outputs.webAppName }}
+  
     steps:
       - uses: actions/checkout@v2
 
@@ -41,15 +43,12 @@ jobs:
 
       - name: Print WebApp endpoint
         # Here we read the outputs of our previously deployed template
-        run: echo https://${{ steps.infra.outputs.webAppEndpoint }}
+        run: echo https://${{ steps.infra.outputs.webAppEndpoint }} && echo WebApp-${{ steps.infra.outputs.WebAppName }}
     
   deploy-webapp:
       needs: [deploy-infra]
       runs-on: ubuntu-latest
       
-      env:
-        APP_NAME: ${{ needs.deploy-infra.outputs.webAppName }}
-
       steps:
         - uses: actions/checkout@v2
 
