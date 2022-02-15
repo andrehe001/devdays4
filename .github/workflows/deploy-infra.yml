@@ -36,14 +36,15 @@ jobs:
           template: ./infra.bicep
           # Here we pass the template parameters to the deployment
           parameters: >
-            env=${{ env.ENV_NAME }}
+            env=${{ env.ENV_NAME }} 
           
 
       - name: Print WebApp endpoint
+        id: print
         # Here we read the outputs of our previously deployed template
-        run: echo https://${{ steps.infra.outputs.webAppEndpoint }} && echo WebApp-${{ steps.infra.outputs.WebAppName }}
-    env:
-        APP_NAME: ${{ deploy-infra.steps.infra.outputs.WebAppName }}
+        run: echo https://${{ steps.infra.outputs.webAppEndpoint }} && echo ${{ steps.infra.outputs.WebAppName }}
+        env:
+         APP_NAME: ${{ steps.infra.outputs.WebAppName }}
         
   deploy-webapp:
       needs: [deploy-infra]
