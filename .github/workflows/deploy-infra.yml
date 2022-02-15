@@ -66,6 +66,5 @@ jobs:
         - name: Deploy Azure WebApp
           uses: Azure/webapps-deploy@v2
           with:
-            # We reference the webAppName output of the deploy-infra job
-            app-name: ${{ deploy-infra.steps.infra.outputs.webAppName }}
+            app-name: ${{ needs.deploy-infra.outputs.webAppName }}
             startup-command: npm start
