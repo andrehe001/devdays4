@@ -10,7 +10,6 @@ env:
   RESOURCE_GROUP_NAME: github-action-bicep-rg
   RESOURCE_GROUP_LOCATION: westeurope
   ENV_NAME: devd4
-  APP_NAME: ${{ deploy-infra.steps.infra.outputs.WebAppName }}
 
 jobs:
   deploy-infra:
@@ -43,7 +42,9 @@ jobs:
       - name: Print WebApp endpoint
         # Here we read the outputs of our previously deployed template
         run: echo https://${{ steps.infra.outputs.webAppEndpoint }} && echo WebApp-${{ steps.infra.outputs.WebAppName }}
-      
+    env:
+        APP_NAME: ${{ deploy-infra.steps.infra.outputs.WebAppName }}
+        
   deploy-webapp:
       needs: [deploy-infra]
       runs-on: ubuntu-latest
