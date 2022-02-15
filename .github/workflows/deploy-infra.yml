@@ -10,6 +10,7 @@ env:
   RESOURCE_GROUP_NAME: github-action-bicep-rg
   RESOURCE_GROUP_LOCATION: westeurope
   ENV_NAME: devd4
+  APP_NAME: ${{ deploy-infra.infra.outputs.WebAppName }}
 
 jobs:
   deploy-infra:
