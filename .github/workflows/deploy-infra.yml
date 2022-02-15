@@ -42,7 +42,7 @@ jobs:
         # Here we read the outputs of our previously deployed template
         run: echo https://${{ steps.infra.outputs.webAppEndpoint }} && echo WebApp-${{ steps.infra.outputs.WebAppName }}
     env:
-      APP_NAME: ${{ steps.infra.outputs.webAppName }}
+      APP_NAME: ${{ steps.infra.outputs.WebAppName }}
       
   deploy-webapp:
       needs: [deploy-infra]
