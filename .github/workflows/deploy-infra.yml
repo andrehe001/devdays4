@@ -45,12 +45,14 @@ jobs:
         run: echo https://${{ steps.infra.outputs.webAppEndpoint }} && echo ${{ steps.infra.outputs.WebAppName }}
         env:
          APP_NAME: ${{ steps.infra.outputs.WebAppName }}
-        
+    outputs:
+        APP-Name: ${{ steps.infra.outputs.WebAppName }}
+      
   deploy-webapp:
       needs: [deploy-infra]
       runs-on: ubuntu-latest
       env:
-         APP-NAME: ${{ needs.deploy-infra.print.env.APP_NAME }}
+         APP-NAME: ${{ needs.deploy-infra.outputs.APP-NAME }}
       steps:
         - uses: actions/checkout@v2
 
